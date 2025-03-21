@@ -1,0 +1,6 @@
+.overlay-text {
+  position: absolute;
+  left: 0%; /* ממקם את הטקסט במרכז המסך ימינה-שמאלה */
+  color: rgb(9, 9, 9);
+  z-index: 10; /* מבטיח שהטקסט יוצג מעל הרקע */
+}

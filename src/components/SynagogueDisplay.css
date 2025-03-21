@@ -1,0 +1,431 @@
+@font-face {
+  font-family: "FbLivorna";
+  src: url("../fonts/FbLivorna-Bold_1.otf") format("otf");
+}
+
+@font-face {
+  font-family: "FbCoherentiSans";
+  src: url("../fonts/FbCoherentiSans-Bold_0.otf") format("otf");
+}
+
+@font-face {
+  font-family: "SILEOTSR";
+  src: url("../fonts/SILEOTSR.ttf") format("truetype");
+}
+
+#root {
+  margin: 0 auto;
+  height: 100vh;
+}
+
+html {
+  font-family: inherit;
+}
+
+.App {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.Draggables {
+  position: relative;
+  transform: unset !important;
+}
+
+.DraggableText {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.BottomTitle {
+  color: #ece1be;
+}
+
+.AreaTitle {
+  max-width: 15vw;
+  text-align: center;
+  color: #955621;
+  font-weight: bold;
+}
+
+.MessagesTitle {
+  text-align: center;
+  color: #955621;
+  font-weight: bold;
+}
+
+.Hodaterum {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Clock {
+  font-weight: "bold";
+}
+
+.Clock1 {
+  font-size: 50;
+  font-weight: "bold";
+}
+
+.AreaText {
+  text-align: center;
+  font-weight: "bold";
+}
+
+.AreaMessageText {
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+.NoWrap {
+  white-space: nowrap;
+}
+
+.Bottom {
+  color: azure;
+  background-color: "black";
+  display: "flex";
+  flex-direction: "row";
+}
+
+.Herum1 {
+  color: black;
+}
+
+.logo {
+  vertical-align: middle;
+}
+
+.Parasha {
+  font-weight: bolder;
+  color: black;
+}
+
+.HebDate {
+  font-weight: "bold";
+  text-align: center;
+}
+
+.ShabbatTimes {
+  font-weight: "bold";
+  text-align: center;
+  color: #000000;
+}
+
+.EngDate {
+  font-weight: "bold";
+}
+
+.SynName {
+  color: #713f17;
+  font-weight: bold;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Columns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  max-width: 15vw;
+}
+
+.Row {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+}
+
+.Sponsored {
+  color: #fff;
+}
+
+.react-resizable {
+  position: relative;
+}
+
+.react-resizable-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  box-sizing: border-box;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2IDYiIHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiNmZmZmZmYwMCIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2cHgiIGhlaWdodD0iNnB4Ij48ZyBvcGFjaXR5PSIwLjMwMiI+PHBhdGggZD0iTSA2IDYgTCAwIDYgTCAwIDQuMiBMIDQgNC4yIEwgNC4yIDQuMiBMIDQuMiAwIEwgNiAwIEwgNiA2IEwgNiA2IFoiIGZpbGw9IiMwMDAwMDAiLz48L2c+PC9zdmc+");
+  background-position: bottom right;
+  padding: 0 3px 3px 0;
+}
+
+.react-resizable-handle-sw {
+  bottom: 0;
+  left: 0;
+  cursor: sw-resize;
+  transform: rotate(90deg);
+}
+
+.react-resizable-handle-se {
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+}
+
+.react-resizable-handle-nw {
+  top: 0;
+  left: 0;
+  cursor: nw-resize;
+  transform: rotate(180deg);
+}
+
+.react-resizable-handle-ne {
+  top: 0;
+  right: 0;
+  cursor: ne-resize;
+  transform: rotate(270deg);
+}
+
+.react-resizable-handle-w,
+.react-resizable-handle-e {
+  top: 50%;
+  margin-top: -10px;
+  cursor: ew-resize;
+}
+
+.react-resizable-handle-w {
+  left: 0;
+  transform: rotate(135deg);
+}
+
+.react-resizable-handle-e {
+  right: 0;
+  transform: rotate(315deg);
+}
+
+.react-resizable-handle-n,
+.react-resizable-handle-s {
+  left: 50%;
+  margin-left: -10px;
+  cursor: ns-resize;
+}
+
+.react-resizable-handle-n {
+  top: 0;
+  transform: rotate(225deg);
+}
+
+.react-resizable-handle-s {
+  bottom: 0;
+  transform: rotate(45deg);
+}
+
+.scrolling-text {
+  position: relative;
+  animation: marquee-vertical 15s linear infinite;
+}
+
+.drag-children {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Clear {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+@media only screen and (max-width: 950px) {
+  html {
+    font-family: inherit;
+  }
+
+  .App {
+    position: relative;
+    box-sizing: border-box;
+    transform: unset;
+    background-image: unset !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #afbdd8;
+    font-family: "David";
+  }
+
+  .ResponsiveText {
+    font-size: 15px !important;
+    direction: rtl;
+  }
+
+  #Header .ResponsiveText {
+    font-size: large !important;
+  }
+
+  #SynName .ResponsiveText {
+    font-size: x-large !important;
+  }
+
+  .DraggableText {
+    border-radius: 7px;
+    box-sizing: border-box;
+    display: flex !important;
+    flex-direction: column !important;
+    height: unset !important;
+    background-color: #fff;
+    position: unset !important;
+    top: unset !important;
+    left: unset !important;
+    right: unset !important;
+    bottom: unset !important;
+    padding: 1%;
+    height: 30vh !important;
+    box-shadow: -1px 6px 15px -9px rgba(0, 0, 0, 0.75);
+  }
+
+  .react-resizable {
+    position: unset !important;
+    width: unset !important;
+    height: unset !important;
+  }
+
+  #SynName {
+    justify-content: center;
+    order: 0;
+    width: 100vw;
+    height: 12% !important;
+    max-height: 40px !important;
+    padding: 0 !important;
+  }
+
+  #ZmanTfila {
+    order: 1;
+    width: 45%;
+  }
+
+  #Header {
+    order: 2;
+    width: 45%;
+  }
+
+  #Area {
+    order: 3;
+    width: 45%;
+  }
+
+  #Notes {
+    order: 4;
+    width: 45%;
+  }
+
+  #Messages {
+    order: 6;
+    width: 45%;
+    height: 18vh !important;
+  }
+
+  #Sponsored {
+    padding-block: 0;
+    width: 45%;
+    order: 5;
+    height: 18vh !important;
+    background-color: unset;
+    color: #fff !important;
+    box-shadow: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  #Sponsored .Row {
+    gap: 0px !important;
+    justify-content: space-between !important;
+    align-items: flex-end;
+  }
+
+  #Header .Columns {
+    gap: 5px;
+  }
+
+  .Clock {
+    order: 1;
+  }
+
+  .Columns .Parasha {
+    gap: 5px !important;
+    color: #955621;
+  }
+
+  .Columns {
+    max-width: unset !important;
+  }
+
+  .logo {
+    width: 40px;
+    height: 30px;
+  }
+
+  .Row {
+    gap: 5px;
+  }
+
+  #Area .Columns .NoWrap {
+    white-space: unset !important;
+  }
+
+  .AreaTitle {
+    max-width: unset;
+  }
+
+  @keyframes marquee-vertical {
+    0% {
+      top: 100%;
+    }
+    100% {
+      top: -100%;
+    }
+  }
+}

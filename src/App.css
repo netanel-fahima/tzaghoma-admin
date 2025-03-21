@@ -1,0 +1,35 @@
+.App {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.Columns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.NoWrap {
+  white-space: nowrap;
+}
+
+.Parasha {
+  font-family: 'FbLivorna';
+}
+
+.logo {
+  object-fit: contain;
+}

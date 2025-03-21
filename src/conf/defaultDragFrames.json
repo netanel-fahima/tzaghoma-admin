@@ -1,0 +1,34 @@
+{
+  "draggable-text-ZmanTfila": {
+    "mobile": { "x": 0, "y": 0 },
+    "desktop": { "x": 1058, "y": 117, "width": 185.703125, "height": 330 }
+  },
+  "draggable-text-SynName": {
+    "mobile": { "x": 0, "y": 0 },
+    "desktop": { "x": 522, "y": 87 }
+  },
+  "draggable-text-Sponsored": {
+    "mobile": { "x": 0, "y": 0 },
+    "desktop": { "x": 5, "y": 687 }
+  },
+  "draggable-text-Notes": {
+    "mobile": { "x": 0, "y": 0 },
+    "desktop": { "x": 1056, "y": 477, "width": 192.578125, "height": 189 }
+  },
+  "draggable-text-DailyTimes": {
+    "mobile": { "x": 0, "y": 0 },
+    "desktop": { "x": 1056, "y": 477, "width": 292.578125, "height": 189 }
+  },
+  "draggable-text-Messages": {
+    "mobile": { "x": 0, "y": 0 },
+    "desktop": { "x": 72, "y": 477, "width": 193.5625, "height": 188 }
+  },
+  "draggable-text-Header": {
+    "mobile": { "x": 0, "y": 0 },
+    "desktop": { "x": 514, "y": 259 }
+  },
+  "draggable-text-Area": {
+    "mobile": { "x": 0, "y": 0 },
+    "desktop": { "x": 75, "y": 119, "width": 194.390625, "height": 329 }
+  }
+}
