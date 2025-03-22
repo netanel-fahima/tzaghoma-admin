@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ResponsiveText from "./ResponsiveText/ResponsiveText";
-import { getCurrentDateStr, getCurrentGeneralTimes, getShabbatTimes } from "../utils/dataManager";
+import { getCurrentDateStr, getCurrentGeneralTimes, getShabbatTimes , getHebrewDate } from "../utils/dataManager";
 import DraggableText from "./DraggableText/DraggableText";
 import Clock from "./Clock";
 
@@ -21,9 +21,9 @@ const Header = ({ container, cityCode = 1, candleLightingOffset = 20 }) => {
       
       try {
         // קבלת זמני היום
-        const zmanim = await getCurrentGeneralTimes(cityCode);
-        if (zmanim) {
-          setHebDate(zmanim.hebDate || 'ט״ו בשבט תשפ״ד');
+        const hebrewDate = await getHebrewDate();
+        if (hebrewDate) {
+          setHebDate(hebrewDate || 'ט״ו בשבט תשפ״ד');
         }
         
         // קבלת זמני שבת

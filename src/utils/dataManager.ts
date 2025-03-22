@@ -9,7 +9,7 @@ const CITIES = {
 };
 
 // מטמון לנתונים
-let cachedData = {
+const cachedData = {
   zmanim: {
     date: "",
     cityCode: 0,
@@ -20,10 +20,18 @@ let cachedData = {
     cityCode: 0,
     data: null,
   },
+  hebrewDate: {
+    date: "",
+    data: null,
+    cityCode: 0,
+  },
 };
 
 // בדיקה האם המטמון תקף
-function isCacheValid(type: "zmanim" | "shabbat", cityCode: number) {
+function isCacheValid(
+  type: "zmanim" | "shabbat" | "hebrewDate",
+  cityCode: number
+) {
   const cache = cachedData[type];
   const today = new Date().toISOString().split("T")[0];
 
@@ -58,6 +66,30 @@ async function fetchZmanim(cityCode: number) {
     return response.data.times;
   } catch (error) {
     console.error("Error fetching zmanim:", error);
+    return null;
+  }
+}
+
+export async function fetchHebrewDate() {
+  const today = new Date().toISOString().split("T")[0];
+
+  try {
+    const url = `https://www.hebcal.com/converter?cfg=json&date=${today}&g2h=1&strict=1`;
+    const response = await axios.get(url);
+
+    if (!response.data?.hebrew) {
+      throw new Error("Invalid API response format");
+    }
+
+    cachedData.hebrewDate = {
+      date: today,
+      data: response.data.hebrew,
+      cityCode: 0,
+    };
+
+    return response.data?.hebrew;
+  } catch (error) {
+    console.error("Error fetching Shabbat times:", error);
     return null;
   }
 }
@@ -112,6 +144,14 @@ export async function getShabbatTimes(cityCode = 1, candleLightingOffset = 30) {
 
   // אם אין נתונים במטמון או שהם לא תקפים, מביא חדשים מה-API
   return await fetchShabbatTimes(cityCode, candleLightingOffset);
+}
+
+export async function getHebrewDate() {
+  if (isCacheValid("hebrewDate", 1)) {
+    return cachedData.hebrewDate.data;
+  }
+
+  return await fetchHebrewDate();
 }
 
 export async function getViewTimes(times, dayType, cityCode) {
