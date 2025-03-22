@@ -51,6 +51,21 @@ export default function SynagogueList({
     }
   }
 
+  async function deleteSynagogue(synagogueId: string) {
+    const confirmed = window.confirm(
+      "האם אתה בטוח שברצונך למחוק את בית הכנסת?"
+    );
+    if (!confirmed) return;
+
+    try {
+      const synagogueRef = doc(db, "synagogues", synagogueId);
+      await updateDoc(synagogueRef, { deleted: true }); // Mark as deleted or implement actual deletion logic
+      console.log("Synagogue deleted successfully");
+    } catch (error) {
+      console.error("Error deleting synagogue:", error);
+    }
+  }
+
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
       <div className="px-4 py-5 sm:px-6 flex items-center">
@@ -124,6 +139,16 @@ export default function SynagogueList({
                   </button>
                 </>
               )}
+              {userRole === "admin" && (
+                <button
+                  onClick={() => deleteSynagogue(synagogue.id)}
+                  className="inline-flex items-center px-3 py-1 border border-transparent text-sm rounded-md text-red-600 bg-red-100 hover:bg-red-200 mr-auto"
+                  title="מחק בית כנסת"
+                >
+                  <X className="h-4 w-4 ml-1" />
+                  מחק בית כנסת
+                </button>
+              )}
             </div>
             <div className="mt-2">
               <h5 className="text-sm font-medium text-gray-700">
@@ -139,7 +164,7 @@ export default function SynagogueList({
                   .map((user) => (
                     <div
                       key={user.id}
-                      className="flex items-center justify-between text-sm text-gray-600 bg-gray-50 p-2 rounded"
+                      className="flex items-center text-sm text-gray-600 bg-gray-50 p-2 rounded"
                     >
                       <div className="flex items-center">
                         <span className="mr-2">{user.name || user.email}</span>
@@ -154,7 +179,7 @@ export default function SynagogueList({
                           onClick={() =>
                             removeSynagogueFromUser(user.id, synagogue.id)
                           }
-                          className="text-red-600 hover:text-red-800 p-2 rounded-md hover:bg-red-50 transition-colors"
+                          className="mr-10 text-red-600 hover:text-red-800 p-2 rounded-md hover:bg-red-50 transition-colors"
                           title="הסר משתמש"
                         >
                           <X className="h-4 w-4" />

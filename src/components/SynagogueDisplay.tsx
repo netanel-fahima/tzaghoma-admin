@@ -106,6 +106,8 @@ export default function SynagogueDisplay() {
 
     // Get synagogue data
     const getSynagogue = async () => {
+      console.log("getSynagogue");
+      intervalGetSynagogue();
       try {
         if (!synId) return;
 
@@ -278,6 +280,14 @@ export default function SynagogueDisplay() {
       }
     };
 
+    let interval: NodeJS.Timeout = null;
+
+    const intervalGetSynagogue = () => {
+      interval = setTimeout(() => {
+        getSynagogue();
+      }, 12 * 60 * 60 * 1000);
+    };
+
     getSynagogue();
 
     // Subscribe to emergency messages
@@ -295,8 +305,19 @@ export default function SynagogueDisplay() {
         setEmergencyMessages(messages);
       });
 
-      return () => unsubscribe();
+      return () => {
+        if (interval) {
+          clearTimeout(interval);
+        }
+        unsubscribe();
+      };
     }
+
+    return () => {
+      if (interval) {
+        clearTimeout(interval);
+      }
+    };
   }, [synId, synagogue?.city]);
 
   if (!synagogue && synId) {

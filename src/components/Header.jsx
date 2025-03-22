@@ -7,6 +7,8 @@ import Clock from "./Clock";
 const Header = ({ container, cityCode = 1, candleLightingOffset = 20 }) => {
   const [hebDate, setHebDate] = useState('ט״ו בשבט תשפ״ד');
   const [parasha, setParasha] = useState('בשלח');
+
+  const [now, setNow] = useState(new Date());
   const [shabbatTimes, setShabbatTimes] = useState({
     candleLighting: '',
     havdalah: ''
@@ -15,6 +17,8 @@ const Header = ({ container, cityCode = 1, candleLightingOffset = 20 }) => {
   
   useEffect(() => {
     const fetchData = async () => {
+      console.log('Fetching Hebrew date...');
+      
       try {
         // קבלת זמני היום
         const zmanim = await getCurrentGeneralTimes(cityCode);
@@ -40,7 +44,18 @@ const Header = ({ container, cityCode = 1, candleLightingOffset = 20 }) => {
     };
     
     fetchData();
-  }, [cityCode, candleLightingOffset]);
+
+  }, [cityCode, candleLightingOffset,now]);
+
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setNow(new Date());
+    }, 12 * 60 * 60 * 1000 ); // Update every minute
+
+    return () => clearInterval(intervalId); // Cleanup on unmount
+  }
+  , []);
 
   return (
     <DraggableText id="Header">
