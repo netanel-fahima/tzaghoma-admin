@@ -51,7 +51,7 @@ const Header = ({ container, cityCode = 1, candleLightingOffset = 20 }) => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setNow(new Date());
-    }, 12 * 60 * 60 * 1000 ); // Update every minute
+    }, 2 * 60 * 60 * 1000 ); // Update every minute
 
     return () => clearInterval(intervalId); // Cleanup on unmount
   }

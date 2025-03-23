@@ -270,7 +270,7 @@ const DraggableText: React.FC<DraggableTextProps> = ({ children, id }) => {
                   : "unset",
             }}
             minConstraints={[50, 50]}
-            maxConstraints={[500, 500]}
+            maxConstraints={[500, 700]}
             height={dragHeight}
             width={dragWidth}
             onResize={onResize}

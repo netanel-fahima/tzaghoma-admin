@@ -3,7 +3,6 @@ import { db } from "../firebase";
 import {
   collection,
   doc,
-  getDoc,
   onSnapshot,
   query,
   where,
@@ -285,7 +284,7 @@ export default function SynagogueDisplay() {
     const intervalGetSynagogue = () => {
       interval = setTimeout(() => {
         getSynagogue();
-      }, 12 * 60 * 60 * 1000);
+      }, 3 * 60 * 60 * 1000);
     };
 
     getSynagogue();
@@ -375,14 +374,15 @@ export default function SynagogueDisplay() {
         />
       </DraggableText>
 
-      <ZmanTfila
-        dragKey="Area"
-        className="AreaTitle"
-        title={title2}
-        times={shabatTimes}
-        containerRef={containerRef}
-      />
-
+      {!!shabatTimes.length && (
+        <ZmanTfila
+          dragKey="Area"
+          className="AreaTitle"
+          title={title2}
+          times={shabatTimes}
+          containerRef={containerRef}
+        />
+      )}
       <DraggableText id="Sponsored">
         <div className="Row">
           {imgLeftFooter && (
@@ -403,35 +403,39 @@ export default function SynagogueDisplay() {
         </div>
       </DraggableText>
 
-      <ZmanTfila
-        className="AreaTitle"
-        dragKey="ZmanTfila"
-        title={title1}
-        times={holTimes}
-        containerRef={containerRef}
-      />
-
-      <DraggableText id="Messages">
-        <ResponsiveText
-          id="Messages-Title"
+      {!!holTimes?.length && (
+        <ZmanTfila
           className="AreaTitle"
-          title={title4}
+          dragKey="ZmanTfila"
+          title={title1}
+          times={holTimes}
           containerRef={containerRef}
         />
+      )}
 
-        <ResponsiveText
-          id="Messages-Text"
-          className="AreaMessageText"
-          title={
-            <div className="Columns">
-              {messageText2?.split("\n").map((str, index) => (
-                <div key={index}>{str}</div>
-              ))}
-            </div>
-          }
-          containerRef={containerRef}
-        />
-      </DraggableText>
+      {messageText2 && (
+        <DraggableText id="Messages">
+          <ResponsiveText
+            id="Messages-Title"
+            className="AreaTitle"
+            title={title4}
+            containerRef={containerRef}
+          />
+
+          <ResponsiveText
+            id="Messages-Text"
+            className="AreaMessageText"
+            title={
+              <div className="Columns">
+                {messageText2?.split("\n").map((str, index) => (
+                  <div key={index}>{str}</div>
+                ))}
+              </div>
+            }
+            containerRef={containerRef}
+          />
+        </DraggableText>
+      )}
 
       <DailyTimes containerRef={containerRef} times={generalTimes} />
 

@@ -147,10 +147,6 @@ export async function getShabbatTimes(cityCode = 1, candleLightingOffset = 30) {
 }
 
 export async function getHebrewDate() {
-  if (isCacheValid("hebrewDate", 1)) {
-    return cachedData.hebrewDate.data;
-  }
-
   return await fetchHebrewDate();
 }
 
