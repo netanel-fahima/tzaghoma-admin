@@ -74,14 +74,14 @@ export default function SynagogueList({
           רשימת בתי כנסת
         </h3>
       </div>
-      <div className="border-t border-gray-200">
+      <div className="border-t border-gray-200 ">
         {synagogues.map((synagogue) => (
           <div
             key={synagogue.id}
-            className="px-4 py-5 sm:p-6 border-b border-gray-200"
+            className="px-4 py-5 sm:p-6 border-b border-gray-200 "
           >
             <h4 className="text-lg font-semibold">{synagogue.name}</h4>
-            <div className="mt-2 flex gap-2">
+            <div className="mt-2 flex gap-2 flex-wrap">
               {userRole === "admin" && (
                 <>
                   <button

@@ -21,9 +21,14 @@ interface DraggableTextProps {
   children: any;
   id?: string;
   user?: string;
+  header?: React.ReactNode; // <--- חדש
 }
 
-const DraggableText: React.FC<DraggableTextProps> = ({ children, id }) => {
+const DraggableText: React.FC<DraggableTextProps> = ({
+  children,
+  id,
+  header,
+}) => {
   const getInitialPosition = (): Position => {
     const savedPosition = id
       ? localStorage.getItem(localStorageKeyPrefix + id)
@@ -43,6 +48,8 @@ const DraggableText: React.FC<DraggableTextProps> = ({ children, id }) => {
   const [escapePressed, setEscapePressed] = useState(false);
   const [hasOverflow, setHasOverflow] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const refmain = useRef(null);
+
   const ref = useRef(null);
 
   const [initialSize, setInitialSize] = useState({
@@ -55,9 +62,9 @@ const DraggableText: React.FC<DraggableTextProps> = ({ children, id }) => {
   const handleDragStart = (e: any) => {
     setIsDragging(true);
     // Create an invisible image (transparent GIF)
-    if (ref.current) {
+    if (refmain.current) {
       //@ts-ignore
-      const rect = ref.current.getBoundingClientRect();
+      const rect = refmain.current.getBoundingClientRect();
       setOffset({
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
@@ -127,38 +134,39 @@ const DraggableText: React.FC<DraggableTextProps> = ({ children, id }) => {
   }, [escapePressed]);
 
   useEffect(() => {
-    setTimeout(() => {
-      const observeTarget = ref.current;
+    const observeTarget = ref.current;
 
-      let s = { ...initialSize };
-      const resizeObserver = new ResizeObserver((entries) => {
-        for (let entry of entries) {
-          const { width, height } = entry.contentRect;
-          if (!s.width && !s.height) {
-            s = isRealMobile()
-              ? {
-                  width: width,
-                  height: height,
-                }
-              : {
-                  width: width,
-                  height: height,
-                };
-            setInitialSize(s);
-          }
+    let s = { ...initialSize };
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width, height } = entry.contentRect;
+
+        if (!s.width && !s.height) {
+          console.log(`Element size: ${width} x ${height}`, header?.props?.id);
+
+          s = isRealMobile()
+            ? {
+                width: width,
+                height: height,
+              }
+            : {
+                width: width,
+                height: height,
+              };
+          setInitialSize(s);
         }
-      });
-
-      if (observeTarget) {
-        resizeObserver.observe(observeTarget);
       }
+    });
 
-      return () => {
-        if (observeTarget) {
-          resizeObserver.unobserve(observeTarget);
-        }
-      };
-    }, 200);
+    if (observeTarget) {
+      resizeObserver.observe(observeTarget);
+    }
+
+    return () => {
+      if (observeTarget) {
+        resizeObserver.unobserve(observeTarget);
+      }
+    };
   }, []);
 
   //@ts-ignore
@@ -237,8 +245,8 @@ const DraggableText: React.FC<DraggableTextProps> = ({ children, id }) => {
 
   return (
     <div
+      ref={refmain}
       className="DraggableText"
-      ref={ref}
       id={id}
       style={{
         left: `${isLandscape ? top : left}px`,
@@ -248,61 +256,80 @@ const DraggableText: React.FC<DraggableTextProps> = ({ children, id }) => {
         position: "absolute",
         border: escapePressed ? "dashed 1px #000 " : "unset",
         whiteSpace: "pre-wrap",
-        overflow: "hidden",
+        background:
+          escapePressed || isDragging ? "rgba(255, 255, 255, 0.25)" : "unset",
       }}
     >
-      <Draggable
-        defaultClassName="Draggables"
-        bounds="parent"
-        disabled={isRealMobile()}
-        onStart={handleDragStart}
-        onDrag={handleDrag}
-        onStop={handleDragEnd}
+      {header && (
+        <div
+          className="draggable-header"
+          style={{
+            width: !isRealMobile() ? dragWidth : "auto",
+            boxSizing: "border-box",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {header}
+        </div>
+      )}
+
+      <div
+        className="DraggableText-div"
+        ref={ref}
+        style={{ overflow: "hidden" }}
       >
-        {initialSize.height || initialSize.height ? (
-          <ResizableBox
-            className="handle"
-            resizeHandles={!escapePressed ? [] : ["se", "sw"]}
-            style={{
-              background:
-                escapePressed || isDragging
-                  ? "rgba(255, 255, 255, 0.25)"
-                  : "unset",
-            }}
-            minConstraints={[50, 50]}
-            maxConstraints={[500, 700]}
-            height={dragHeight}
-            width={dragWidth}
-            onResize={onResize}
-            onResizeStart={(e: any) => e.stopPropagation()}
-          >
-            <div
-              style={{
-                position: "relative",
-              }}
-              className={`drag-children ${hasOverflow ? "scrolling-text" : ""}`}
+        <Draggable
+          defaultClassName="Draggables"
+          bounds="parent"
+          disabled={isRealMobile()}
+          onStart={handleDragStart}
+          onDrag={handleDrag}
+          onStop={handleDragEnd}
+        >
+          {initialSize.height ? (
+            <ResizableBox
+              className="handle"
+              resizeHandles={!escapePressed ? [] : ["se", "sw"]}
+              style={{}}
+              minConstraints={[100, 50]}
+              maxConstraints={[500, 700]}
+              height={dragHeight}
+              width={dragWidth}
+              onResize={onResize}
+              onResizeStart={(e: any) => e.stopPropagation()}
             >
-              {children}
-              {hasOverflow && !isRealMobile() && (
-                <style>
-                  {`
-              @keyframes marquee-vertical {
-                0% {
-                top: ${dragHeight}px;
-                }
-                100% {
-                top: -${dragHeight}px;
-                }
-              }
-              `}
-                </style>
-              )}
-            </div>
-          </ResizableBox>
-        ) : (
-          <>{children}</>
-        )}
-      </Draggable>
+              <div
+                style={{
+                  position: "relative",
+                }}
+                className={`drag-children ${
+                  hasOverflow ? "scrolling-text" : ""
+                }`}
+              >
+                {children}
+                {hasOverflow && (
+                  <style>
+                    {`
+                    @keyframes marquee-vertical {
+                        from {
+                        transform: translateY(60%);
+                      }
+                      to {
+                        transform: translateY(-100%);
+                      }
+                    }
+                    `}
+                  </style>
+                )}
+              </div>
+            </ResizableBox>
+          ) : (
+            <>{children}</>
+          )}
+        </Draggable>
+      </div>
     </div>
   );
 };

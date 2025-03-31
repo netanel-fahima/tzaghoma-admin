@@ -20,9 +20,14 @@ interface DailyTimesProps {
     tzeit72min?: string;
     chatzotNight?: string;
   };
+  title: string;
 }
 
-const DailyTimes: React.FC<DailyTimesProps> = ({ containerRef, times }) => {
+const DailyTimes: React.FC<DailyTimesProps> = ({
+  containerRef,
+  times,
+  title = "זמני היום",
+}) => {
   const formatTime = (isoTime?: string) => {
     if (!isoTime) return "--:--";
     try {
@@ -57,13 +62,17 @@ const DailyTimes: React.FC<DailyTimesProps> = ({ containerRef, times }) => {
   ];
 
   return (
-    <DraggableText id="DailyTimes">
-      <ResponsiveText
-        id="DailyTimes-Title"
-        className="AreaTitle"
-        title="זמני היום"
-        containerRef={containerRef}
-      />
+    <DraggableText
+      id="DailyTimes"
+      header={
+        <ResponsiveText
+          id="DailyTimes-Title"
+          className="AreaTitle"
+          title={title}
+          containerRef={containerRef}
+        />
+      }
+    >
       <ResponsiveText
         id="DailyTimes-Times"
         containerRef={containerRef}

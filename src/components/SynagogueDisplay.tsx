@@ -21,6 +21,7 @@ import "react-contexify/dist/ReactContexify.css";
 import "./SynagogueDisplay.css";
 
 import { useSearchParams } from "react-router-dom";
+import { Synagogue } from "../types";
 
 export default function SynagogueDisplay() {
   const [searchParams] = useSearchParams();
@@ -35,11 +36,13 @@ export default function SynagogueDisplay() {
     { Desc: string; Hour: string }[]
   >([]);
 
-  const [synagogue, setSynagogue] = useState<any>(null);
+  const [synagogue, setSynagogue] = useState<Synagogue | null>(null);
   const [emergencyMessages, setEmergencyMessages] = useState<any[]>([]);
   const [generalTimes, setGeneralTimes] = useState<any>({});
 
-  const [imgRightFooter, setImgRightFooter] = useState("logo-zag-digital.png");
+  const [imgRightFooter, setImgRightFooter] = useState(
+    new URL(`../img/logo-zag-homa.png`, import.meta.url).href
+  );
   const [textRightFooter, setTextRightFooter] = useState("052-329-2977");
 
   const [imgLeftFooter, setImgLeftFooter] = useState(null);
@@ -71,13 +74,21 @@ export default function SynagogueDisplay() {
     return () => clearInterval(intervalId);
   }, [synId]);
 
-  const [isCanEditFooter, setIsCanEditFooter] = useState(false);
-  const [title1, setTitle1] = useState("זמנים לחול");
-  const [title2, setTitle2] = useState("זמנים לשבת");
-  const [title3, setTitle3] = useState("שהשמחה במעונם");
-  const [title4, setTitle4] = useState("הודעות");
-  const [messageText1, setMessageText1] = useState("הודעה 1");
-  const [messageText2, setMessageText2] = useState("הודעה 2");
+  const [isCanEditFooter, setIsCanEditFooter] = useState(true);
+  const [titleRight, setTitleRight] = useState("זמנים לחול");
+  const [titleLeft, setTitleLeft] = useState("זמנים לשבת");
+  const [titleLeftBottom, setTitleLeftBottom] = useState("הודעות");
+  const [titleRightBottom, setTitleRightBottom] = useState("זמני היום");
+
+  const [contentLeftBottom, setContentLeftBottom] = useState("");
+
+  useEffect(() => {
+    setTitleRight(synagogue?.titleRight || "זמנים לחול");
+    setTitleLeft(synagogue?.titleLeft || "זמנים לשבת");
+    setTitleLeftBottom(synagogue?.titleLeftBottom || "הודעות");
+    setTitleRightBottom(synagogue?.titleRightBottom || "זמני היום");
+  }, [synagogue]);
+
   const getJson = (key: string) => {
     try {
       const value = localStorage.getItem(key);
@@ -129,7 +140,7 @@ export default function SynagogueDisplay() {
             setTextLeftFooter(
               `בחסות מחלקת בטחון, עיריית ${docSnap.data().city}`
             );
-            setMessageText2(docSnap.data().contentLeftBottom);
+            setContentLeftBottom(docSnap.data().contentLeftBottom);
 
             // Set prayer times from synagogue data
             const prayerTimes = docSnap.data().prayerTimes || [];
@@ -378,7 +389,7 @@ export default function SynagogueDisplay() {
         <ZmanTfila
           dragKey="Area"
           className="AreaTitle"
-          title={title2}
+          title={titleLeft}
           times={shabatTimes}
           containerRef={containerRef}
         />
@@ -407,27 +418,30 @@ export default function SynagogueDisplay() {
         <ZmanTfila
           className="AreaTitle"
           dragKey="ZmanTfila"
-          title={title1}
+          title={titleRight}
           times={holTimes}
           containerRef={containerRef}
         />
       )}
 
-      {messageText2 && (
-        <DraggableText id="Messages">
-          <ResponsiveText
-            id="Messages-Title"
-            className="AreaTitle"
-            title={title4}
-            containerRef={containerRef}
-          />
-
+      {contentLeftBottom && (
+        <DraggableText
+          id="Messages"
+          header={
+            <ResponsiveText
+              id="Messages-Title"
+              className="AreaTitle"
+              title={titleLeftBottom}
+              containerRef={containerRef}
+            />
+          }
+        >
           <ResponsiveText
             id="Messages-Text"
             className="AreaMessageText"
             title={
               <div className="Columns">
-                {messageText2?.split("\n").map((str, index) => (
+                {contentLeftBottom?.split("\n").map((str, index) => (
                   <div key={index}>{str}</div>
                 ))}
               </div>
@@ -437,35 +451,40 @@ export default function SynagogueDisplay() {
         </DraggableText>
       )}
 
-      <DailyTimes containerRef={containerRef} times={generalTimes} />
+      <DailyTimes
+        containerRef={containerRef}
+        times={generalTimes}
+        title={titleRightBottom}
+      />
 
       {isCanEditFooter && (
-        <DraggableText id="BottomTitle">
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <ResponsiveText
-              id="BottomTitle"
-              className="BottomTitle"
-              title={textRightFooter}
-              containerRef={containerRef}
-            />
+        <div className="BottomLogo">
+          <DraggableText id="BottomTitle">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row-reverse",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <ResponsiveText
+                id="BottomTitle"
+                className="BottomTitle"
+                title={textRightFooter}
+                containerRef={containerRef}
+              />
 
-            <img
-              style={{ marginTop: -7 }}
-              src={imgRightFooter}
-              className="logo"
-              alt=""
-              width={160}
-              height={50}
-            />
-          </div>
-        </DraggableText>
+              <img
+                src={imgRightFooter}
+                className="logo"
+                alt=""
+                width={100}
+                height={40}
+              />
+            </div>
+          </DraggableText>
+        </div>
       )}
 
       <HodatHerum

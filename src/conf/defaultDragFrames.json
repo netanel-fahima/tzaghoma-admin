@@ -30,5 +30,9 @@
   "draggable-text-Area": {
     "mobile": { "x": 0, "y": 0 },
     "desktop": { "x": 75, "y": 119, "width": 194.390625, "height": 329 }
+  },
+  "draggable-text-BottomTitle": {
+    "mobile": { "x": 0, "y": 0, "width": 0, "height": 0 },
+    "desktop": { "x": 1068, "y": 761, "width": 0, "height": 0 }
   }
 }

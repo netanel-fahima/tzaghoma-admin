@@ -261,7 +261,11 @@ html {
 
 .scrolling-text {
   position: relative;
-  animation: marquee-vertical 15s linear infinite;
+  animation: marquee-vertical 18s linear infinite;
+}
+
+#DailyTimes .scrolling-text {
+  animation: marquee-vertical 35s linear infinite;
 }
 
 .drag-children {
@@ -300,6 +304,10 @@ html {
     direction: rtl;
   }
 
+  .BottomLogo {
+    display: none !important;
+  }
+
   #Header .ResponsiveText {
     font-size: large !important;
   }
@@ -314,7 +322,7 @@ html {
     display: flex !important;
     flex-direction: column !important;
     height: unset !important;
-    background-color: #fff;
+    background-color: #fff !important;
     position: unset !important;
     top: unset !important;
     left: unset !important;
@@ -323,6 +331,10 @@ html {
     padding: 1%;
     height: 30vh !important;
     box-shadow: -1px 6px 15px -9px rgba(0, 0, 0, 0.75);
+  }
+
+  .DraggableText-div {
+    height: 100%;
   }
 
   .react-resizable {
@@ -345,18 +357,18 @@ html {
     width: 45%;
   }
 
-  #Header {
+  #Area {
     order: 2;
     width: 45%;
   }
 
-  #Area {
-    order: 3;
+  #DailyTimes {
+    order: 4;
     width: 45%;
   }
 
-  #Notes {
-    order: 4;
+  #Header {
+    order: 3;
     width: 45%;
   }
 
@@ -366,18 +378,31 @@ html {
     height: 18vh !important;
   }
 
+  #Notes {
+    order: 4;
+    width: 45%;
+  }
+
   #Sponsored {
     padding-block: 0;
     width: 45%;
     order: 5;
     height: 18vh !important;
-    background-color: unset;
+    background-color: unset !important;
     color: #fff !important;
     box-shadow: unset;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     justify-content: flex-end;
+  }
+
+  #Sponsored .Draggables {
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end !important;
+    justify-content: flex-end !important;
   }
 
   #Sponsored .Row {
@@ -413,6 +438,10 @@ html {
   }
 
   #Area .Columns .NoWrap {
+    white-space: unset !important;
+  }
+
+  #DailyTimes .Columns.NoWrap {
     white-space: unset !important;
   }
 

@@ -1,51 +1,56 @@
-import React, { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import type { Synagogue, User } from '../types';
-import { useSearchParams } from 'react-router-dom';
+import React, { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import type { Synagogue, User } from "../types";
+import { useSearchParams } from "react-router-dom";
 
 interface ConnectionStatusProps {
   synagogues: Synagogue[];
   users: User[];
 }
 
-export default function ConnectionStatus({ synagogues, users }: ConnectionStatusProps) {
+export default function ConnectionStatus({
+  synagogues,
+  users,
+}: ConnectionStatusProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const selectedCity = searchParams.get('city');
-  
+  const selectedCity = searchParams.get("city");
+
   const { connectedSynagogues, disconnectedSynagogues } = useMemo(() => {
     const threeHoursAgo = new Date();
     threeHoursAgo.setHours(threeHoursAgo.getHours() - 3);
 
     // סינון בתי הכנסת לפי העיר שנבחרה
-    const filteredSynagogues = selectedCity 
-      ? synagogues.filter(s => s.city === selectedCity)
+    const filteredSynagogues = selectedCity
+      ? synagogues.filter((s) => s.city === selectedCity)
       : synagogues;
-    
+
     return {
       connectedSynagogues: filteredSynagogues.filter(
-        synagogue => new Date(synagogue.lastConnection) > threeHoursAgo
+        (synagogue) => new Date(synagogue.lastConnection) > threeHoursAgo
       ),
       disconnectedSynagogues: filteredSynagogues.filter(
-        synagogue => new Date(synagogue.lastConnection) <= threeHoursAgo
-      )
+        (synagogue) => new Date(synagogue.lastConnection) <= threeHoursAgo
+      ),
     };
   }, [synagogues, selectedCity]);
 
   // פונקציה למציאת שם הגבאי לפי בית כנסת
   const getGabbaiInfo = (synagogueId: string) => {
-    const gabbai = users.find(user => 
-      user.role === 'gabbai' && 
-      user.synagogueIds?.includes(synagogueId)
+    const gabbai = users.find(
+      (user) =>
+        user.role === "gabbai" && user.synagogueIds?.includes(synagogueId)
     );
-    return gabbai ? {
-      name: gabbai.name || gabbai.email,
-      phone: gabbai.phone || 'לא הוגדר'
-    } : {
-      name: 'לא הוגדר',
-      phone: 'לא הוגדר'
-    };
+    return gabbai
+      ? {
+          name: gabbai.name || gabbai.email,
+          phone: gabbai.phone || "לא הוגדר",
+        }
+      : {
+          name: "לא הוגדר",
+          phone: "לא הוגדר",
+        };
   };
 
   return (
@@ -53,7 +58,7 @@ export default function ConnectionStatus({ synagogues, users }: ConnectionStatus
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center mb-8">
           <button
-            onClick={() => navigate('/admin')}
+            onClick={() => navigate("/admin")}
             className="flex items-center text-indigo-600 hover:text-indigo-700"
           >
             <ArrowRight className="h-5 w-5 ml-1" />
@@ -65,9 +70,10 @@ export default function ConnectionStatus({ synagogues, users }: ConnectionStatus
           {/* בתי כנסת מחוברים */}
           <div>
             <h2 className="text-xl font-bold text-gray-900 mb-4">
-              <span className="text-green-600">בתי כנסת מחוברים</span> ({connectedSynagogues.length})
+              <span className="text-green-600">בתי כנסת מחוברים</span> (
+              {connectedSynagogues.length})
             </h2>
-            <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div className="bg-white shadow overflow-hidden sm:rounded-lg overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
@@ -113,9 +119,10 @@ export default function ConnectionStatus({ synagogues, users }: ConnectionStatus
           {/* בתי כנסת לא מחוברים */}
           <div>
             <h2 className="text-xl font-bold text-gray-900 mb-4">
-              <span className="text-red-600">בתי כנסת מנותקים</span> ({disconnectedSynagogues.length})
+              <span className="text-red-600">בתי כנסת מנותקים</span> (
+              {disconnectedSynagogues.length})
             </h2>
-            <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div className="bg-white shadow overflow-hidden sm:rounded-lg overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>

@@ -17,14 +17,18 @@ const ZmanTfila: React.FC<ZmanTfilaProps> = ({
   dragKey,
 }) => {
   return (
-    <DraggableText id={dragKey}>
-      <div className="Columns">
+    <DraggableText
+      id={dragKey}
+      header={
         <ResponsiveText
           id={`${dragKey}-Title`}
           className={className}
           title={title}
           containerRef={containerRef}
         />
+      }
+    >
+      <div className="Columns">
         <ResponsiveText
           id={`${dragKey}-Times`}
           containerRef={containerRef}

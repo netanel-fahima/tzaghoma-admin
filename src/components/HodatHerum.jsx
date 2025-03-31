@@ -177,7 +177,7 @@ const HodatHerum = ({ city = "נתיבות", container, messages: firestoreMessa
             >
                 {lastCategory ? 'התראת פיקוד העורף' : `הודעת חירום של עירית ${city}`}
             </span>
-            <marquee width="90%" direction="left" style={{ 
+            <marquee width="90%" direction="right" style={{ 
                 fontWeight: "bolder", 
                 position: "absolute", 
                 top: "50%", 

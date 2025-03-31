@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { UserPlus } from 'lucide-react';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { UserPlus } from "lucide-react";
 
 export default function Signup() {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
   const navigate = useNavigate();
@@ -16,17 +16,24 @@ export default function Signup() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    if (!passwordRegex.test(password)) {
+      return setError(
+        "הסיסמה חייבת להיות לפחות 6 תווים באנגלית, לכלול מספרים ואות גדולה"
+      );
+    }
+
     if (password !== passwordConfirm) {
-      return setError('הסיסמאות אינן תואמות');
+      return setError("הסיסמאות אינן תואמות");
     }
 
     try {
-      setError('');
+      setError("");
       setLoading(true);
       await signup(email, password, name);
-      navigate('/admin');
+      navigate("/admin");
     } catch (err) {
-      setError('שגיאה ביצירת החשבון');
+      setError("שגיאה ביצירת החשבון");
     } finally {
       setLoading(false);
     }
@@ -42,8 +49,11 @@ export default function Signup() {
           הרשמה למערכת
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          או{' '}
-          <Link to="/admin/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+          או{" "}
+          <Link
+            to="/admin/login"
+            className="font-medium text-indigo-600 hover:text-indigo-500"
+          >
             התחברות למערכת
           </Link>
         </p>
@@ -52,13 +62,19 @@ export default function Signup() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+              role="alert"
+            >
               <span className="block sm:inline">{error}</span>
             </div>
           )}
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700"
+              >
                 שם הגבאי
               </label>
               <div className="mt-1">
@@ -74,7 +90,10 @@ export default function Signup() {
               </div>
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 כתובת אימייל
               </label>
               <div className="mt-1">
@@ -92,7 +111,10 @@ export default function Signup() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 סיסמה
               </label>
               <div className="mt-1">
@@ -110,7 +132,10 @@ export default function Signup() {
             </div>
 
             <div>
-              <label htmlFor="password-confirm" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password-confirm"
+                className="block text-sm font-medium text-gray-700"
+              >
                 אימות סיסמה
               </label>
               <div className="mt-1">
@@ -133,7 +158,7 @@ export default function Signup() {
                 disabled={loading}
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                {loading ? 'יוצר חשבון...' : 'הרשמה'}
+                {loading ? "יוצר חשבון..." : "הרשמה"}
               </button>
             </div>
           </form>
