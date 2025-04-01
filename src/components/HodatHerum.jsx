@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo,useRef } from "react";
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import ResponsiveText from "./ResponsiveText/ResponsiveText";
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 
 const HodatHerum = ({ city = "נתיבות", container, messages: firestoreMessages = [], synagogueId }) => {
-    const [messages, setMessages] = useState([]);
     const [lastCategory, setLastCategory] = useState(null);
     const [allMessages, setAllMessages] = useState([]);
     const [readMessages, setReadMessages] = useState(new Set());
@@ -66,63 +65,92 @@ const HodatHerum = ({ city = "נתיבות", container, messages: firestoreMessa
         });
     }, [allMessages, synagogueId, readMessages]);
 
+    const seenAlertIdsRef = useRef(new Set());
+
     useEffect(() => {
-        const fetchAlerts = async () => {
-           return
-            try {
-                const response = await fetch('http://localhost:8080/alerts');
+
+        const clearMessages =  () => {
+            setAllMessages(prev => {
+                const now = Date.now();
+                const filter =  prev.filter(msg => now - msg.timestamp < 10 * 60 * 1000 ||  msg.category === 'firestore');
+
+                const needUpdate = [...seenAlertIdsRef.current].some(
+                    id => !filter.some(msg => msg.id === id)
+                  );
+                  
+                  if (needUpdate) {
+                    // שמירה רק של ה-id-ים שקיימים גם ב-filter
+                    const updatedSet = new Set([]);
+                    filter.forEach(msg => {
+                      if (seenAlertIdsRef.current.has(msg.id)) {
+                        updatedSet.add(msg.id);
+                      }
+                    });
+                    seenAlertIdsRef.current = updatedSet;
+                  
+                    console.log('seenAlertIdsRef.current', [...seenAlertIdsRef.current]);
+                  }
                 
+                if(!filter.some(msg => msg.category === 'pikud')) {
+                    setLastCategory(undefined);
+                }
+                return filter;
+            });
+        }
+
+        const intervalId = setInterval(clearMessages, 1000);
+
+        return () => clearInterval(intervalId); 
+
+     }, [allMessages]);
+
+     useEffect(() => {
+
+        const fetchAlerts = async () => {
+            try {
+                const response = await fetch('https://www.kore.co.il/redAlert.json'.concat('?qc=', Date.now()), {
+                    cache: 'no-store'
+                });
+    
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-
-                const data = await response.json();
-                
-                // בדיקה אם יש התראות חדשות
-                if (data && Array.isArray(data) && data.length > 0) {
-                    // מסנן רק התראות לעיר הספציפית
-                    const cityAlerts = data.filter(alert => alert.data.includes(city));
-                    
-                    if (cityAlerts.length > 0) {
-                        const latestAlert = cityAlerts[0];
-                        
-                        // אם זו התראה חדשה או מקטגוריה שונה
-                        if (lastCategory !== latestAlert.category) {
-                            const pikudAlerts = cityAlerts.map(alert => ({
-                                id: alert.alertDate,
-                                content: `${alert.title} - ${new Date(alert.alertDate).toLocaleTimeString('he-IL')} - ${alert.data}`,
-                                category: 'pikud',
-                                timestamp: alert.alertDate
-                            }));
-                            setAllMessages(prev => {
-                                // שמירה רק על התראות Firestore ועדכון התראות פיקוד העורף
-                                const firestoreAlerts = prev.filter(msg => msg.category === 'firestore');
-                                return [...firestoreAlerts, ...pikudAlerts];
-                            });
-                            setLastCategory(latestAlert.category);
-                        }
-                    } else {
-                        // אם אין התראות לעיר, נקה רק את התראות פיקוד העורף
-                        setAllMessages(prev => prev.filter(msg => msg.category === 'firestore'));
-                        setLastCategory(null);
+    
+                const alert = await response.json();
+    
+                // בדיקת רלוונטיות לפי העיר
+                if (
+                    alert?.id &&
+                    Array.isArray(alert.data) &&
+                    alert.data.some(location => location.includes(city))
+                ) {
+                    if (!seenAlertIdsRef.current.has(alert.id)) {
+    
+                        const newAlert = {
+                            id: alert.id,
+                            content: `${new Date().toLocaleTimeString('he-IL')} - ${city} - ${alert?.title || ''} - ${alert.desc || ''}`,
+                            category: 'pikud',
+                            timestamp: new Date().getTime(),
+                        };
+    
+                        console.log('newAlert', newAlert);
+    
+                        setAllMessages(prev => [...prev, newAlert]);
+                        seenAlertIdsRef.current.add(alert.id);
+                        setLastCategory(alert.cat);
                     }
-                } else {
-                    // אם אין התראות בכלל, נקה רק את התראות פיקוד העורף
-                    setAllMessages(prev => prev.filter(msg => msg.category === 'firestore'));
-                    setLastCategory(null);
                 }
+    
             } catch (error) {
                 console.error('Error fetching alerts:', error);
             }
         };
-
-        // דגימה כל שנייה
-        const intervalId = setInterval(fetchAlerts, 1000);
-
-        return () => {
-            clearInterval(intervalId);
-        };
-    }, [city, lastCategory]);
+    
+        const intervalId = setInterval(fetchAlerts, 2000);
+    
+        return () => clearInterval(intervalId);
+    }, [city]);
+    
 
     // מיון ההודעות לפי זמן
     const sortedMessages = useMemo(() => {

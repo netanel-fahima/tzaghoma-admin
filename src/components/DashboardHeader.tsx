@@ -22,6 +22,11 @@ export default function DashboardHeader({
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center py-3 space-y-3 md:space-y-0">
           {/* טייטל ותפקיד */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 rtl:space-x-reverse">
+            <div className="text-gray-600 text-sm">
+              <span className="font-bold text-blue-700 border-solid border-b-2 border-blue-700">
+                <a href="https://tzaghoma.co.il">דף הבית</a>
+              </span>
+            </div>
             <h1 className="text-xl font-bold text-gray-800 mb-2 sm:mb-0">
               מערכת ניהול
             </h1>

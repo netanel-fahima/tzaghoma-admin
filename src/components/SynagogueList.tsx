@@ -10,7 +10,7 @@ import {
   Settings,
 } from "lucide-react";
 import type { Synagogue, User } from "../types";
-import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
@@ -59,7 +59,7 @@ export default function SynagogueList({
 
     try {
       const synagogueRef = doc(db, "synagogues", synagogueId);
-      await updateDoc(synagogueRef, { deleted: true }); // Mark as deleted or implement actual deletion logic
+      await deleteDoc(synagogueRef); // Mark as deleted or implement actual deletion logic
       console.log("Synagogue deleted successfully");
     } catch (error) {
       console.error("Error deleting synagogue:", error);

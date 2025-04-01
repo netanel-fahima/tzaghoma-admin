@@ -22,7 +22,7 @@
   "style-Messages-Text": { "fontSize": 1.2, "fontFamily": "SILEOTSR" },
   "style-Notes-Title": { "fontSize": 1.4, "fontFamily": "SILEOTSR" },
   "style-Notes-Text": { "fontSize": 1.2, "fontFamily": "SILEOTSR" },
-  "style-Hodaterum": { "fontSize": 2.3, "fontFamily": "SILEOTSR" },
+  "style-Hodaterum": { "fontSize": 3, "fontFamily": "SILEOTSR" },
   "style-BottomTitle": { "fontSize": 1.1, "fontFamily": "SILEOTSR" },
   "style-DailyTimes-Title": { "fontSize": 1.6, "fontFamily": "SILEOTSR" },
   "style-DailyTimes-Times": { "fontSize": 1.1, "fontFamily": "SILEOTSR" }

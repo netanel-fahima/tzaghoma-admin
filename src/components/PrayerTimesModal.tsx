@@ -167,9 +167,10 @@ export default function PrayerTimesModal({
                                   className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-white py-2 px-3 text-gray-900 appearance-none cursor-pointer bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3E%3Cpath stroke=\'%236B7280\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'m6 8 4 4 4-4\'/%3E%3C/svg%3E')] bg-[length:1.25em_1.25em] bg-[right_0.5rem_center] bg-no-repeat pr-10"
                                   placeholder="סוג תפילה"
                                 >
+                                  <option value="שחרית">שחרית</option>
                                   <option value="מנחה">מנחה</option>
                                   <option value="ערבית">ערבית</option>
-                                  <option value="שחרית">שחרית</option>
+                                  <option value="אחר">אחר</option>
                                 </select>
                               </div>
 
@@ -259,7 +260,7 @@ export default function PrayerTimesModal({
                                           },
                                         })
                                       }
-                                      className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-2 px-3"
+                                      className="text-center block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-2 px-3"
                                       placeholder="דקות"
                                     />
                                   </div>

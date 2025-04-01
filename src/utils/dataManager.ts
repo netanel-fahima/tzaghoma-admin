@@ -77,17 +77,23 @@ export async function fetchHebrewDate() {
     const url = `https://www.hebcal.com/converter?cfg=json&date=${today}&g2h=1&strict=1`;
     const response = await axios.get(url);
 
-    if (!response.data?.hebrew) {
+    if (
+      !response?.data?.heDateParts?.y ||
+      !response?.data?.heDateParts?.d ||
+      !response?.data?.heDateParts?.m
+    ) {
       throw new Error("Invalid API response format");
     }
 
+    const hebDate = `${response?.data?.heDateParts?.d} ב${response?.data.heDateParts.m} ${response.data.heDateParts.y}`;
+
     cachedData.hebrewDate = {
       date: today,
-      data: response.data.hebrew,
+      data: hebDate,
       cityCode: 0,
     };
 
-    return response.data?.hebrew;
+    return hebDate;
   } catch (error) {
     console.error("Error fetching Shabbat times:", error);
     return null;

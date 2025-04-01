@@ -31,7 +31,9 @@ const Header = ({ container, cityCode = 1, candleLightingOffset = 20 }) => {
         if (shabbat?.items) {
           const candleLighting = shabbat.items.find(item => item.category === 'candles')?.title?.match(/\d{1,2}:\d{2}/)?.[0] || '';
           const havdalah = shabbat.items.find(item => item.category === 'havdalah')?.title?.match(/\d{1,2}:\d{2}/)?.[0] || '';
-          const weeklyParasha = shabbat.items.find(item => item.category === 'parashat')?.hebrew || '';
+          const weeklyParasha = shabbat.items.find(item => item.category === 'parashat')?.hebrew || 
+          shabbat.items.find(item => item.category === 'holiday' && item.date === new Date().toISOString().split("T")[0])?.hebrew ||
+          ''
           setParasha(weeklyParasha);
           setShabbatTimes({
             candleLighting,

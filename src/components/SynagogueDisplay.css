@@ -315,7 +315,9 @@ html {
   #SynName .ResponsiveText {
     font-size: x-large !important;
   }
-
+  .draggable-header {
+    width: 100% !important;
+  }
   .DraggableText {
     border-radius: 7px;
     box-sizing: border-box;

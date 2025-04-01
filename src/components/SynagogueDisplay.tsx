@@ -65,8 +65,8 @@ export default function SynagogueDisplay() {
       }
     };
 
-    // עדכון ראשוני
-    updateLastConnection();
+    // // עדכון ראשוני
+    // updateLastConnection();
 
     // עדכון כל שעה
     const intervalId = setInterval(updateLastConnection, 60 * 60 * 1000);

@@ -97,7 +97,7 @@ export default function Preview() {
                   className="inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   <Eye className="h-5 w-5 ml-2" />
-                  צפה בבית הכנסת (לצפייה במסך מחשב)
+                  צפה בבית הכנסת
                 </button>
               </div>
             )}

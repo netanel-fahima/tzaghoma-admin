@@ -1,9 +1,13 @@
-export type UserRole = 'admin' | 'gabbai' | 'security' | 'technician';
+export type UserRole = "admin" | "gabbai" | "security" | "technician";
 
-export type PrayerType = 'מנחה' | 'ערבית' | 'שחרית';
-export type DayType = 'חול' | 'שבת';
-export type TimeRelation = 'לפני השקיעה' | 'אחרי השקיעה' | 'לפני הזריחה' | 'אחרי הזריחה';
-export type TimeType = 'fixed' | 'relative';
+export type PrayerType = "מנחה" | "ערבית" | "שחרית" | "אחר";
+export type DayType = "חול" | "שבת";
+export type TimeRelation =
+  | "לפני השקיעה"
+  | "אחרי השקיעה"
+  | "לפני הזריחה"
+  | "אחרי הזריחה";
+export type TimeType = "fixed" | "relative";
 
 export interface PrayerTime {
   id: string;

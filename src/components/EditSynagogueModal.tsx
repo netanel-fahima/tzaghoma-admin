@@ -184,7 +184,7 @@ export default function EditSynagogueModal({
                   candleLightingOffset: parseInt(e.target.value),
                 })
               }
-              className="block w-20 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="block w-20 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-center"
               required
             />
           </div>
