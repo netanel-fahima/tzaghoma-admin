@@ -14,23 +14,31 @@ interface BackgroundSelectorModalProps {
 const backgrounds = [
   {
     id: "background-1",
-    url: new URL("../img/final-back.jpg", import.meta.url).href,
+    url: new URL("../img/bg/1.jpg", import.meta.url).href,
   },
   {
     id: "background-2",
-    url: new URL("../img/final_background.jpg", import.meta.url).href,
+    url: new URL("../img/bg/2.jpg", import.meta.url).href,
   },
   {
     id: "background-3",
-    url: new URL("../img/pikud_haaoref.jpg", import.meta.url).href,
+    url: new URL("../img/bg/3.jpg", import.meta.url).href,
   },
   {
     id: "background-4",
-    url: new URL("../img/pikud_haaoref.old.jpg", import.meta.url).href,
+    url: new URL("../img/bg/4.jpg", import.meta.url).href,
   },
   {
     id: "background-5",
-    url: new URL("../img/pikud_haaoref_tt.jpg", import.meta.url).href,
+    url: new URL("../img/bg/5.jpg", import.meta.url).href,
+  },
+  {
+    id: "background-6",
+    url: new URL("../img/bg/6.jpg", import.meta.url).href,
+  },
+  {
+    id: "background-7",
+    url: new URL("../img/bg/7.jpg", import.meta.url).href,
   },
 ];
 
