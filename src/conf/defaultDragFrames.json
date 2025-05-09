@@ -1,38 +1,73 @@
 {
-  "draggable-text-ZmanTfila": {
+  "draggable-text-Area": {
     "mobile": { "x": 0, "y": 0 },
-    "desktop": { "x": 1058, "y": 117, "width": 185.703125, "height": 330 }
+    "desktop": {
+      "x": 58.995262145996094,
+      "y": 101.9952621459961,
+      "width": 173.390625,
+      "height": 267
+    }
   },
-  "draggable-text-SynName": {
-    "mobile": { "x": 0, "y": 0 },
-    "desktop": { "x": 522, "y": 87 }
+  "draggable-text-BottomTitle": {
+    "mobile": { "x": 0, "y": 0, "width": 0, "height": 0 },
+    "desktop": {
+      "x": 880.6249389648438,
+      "y": 586.9961853027344,
+      "width": 258.71875,
+      "height": 66.99716186523438
+    }
   },
-  "draggable-text-Sponsored": {
+  "draggable-text-DailyTimes": {
     "mobile": { "x": 0, "y": 0 },
-    "desktop": { "x": 5, "y": 687 }
+    "desktop": {
+      "x": 932.3768310546875,
+      "y": 426.96209716796875,
+      "width": 168.578125,
+      "height": 137
+    }
+  },
+  "draggable-text-Header": {
+    "mobile": { "x": 0, "y": 0 },
+    "desktop": {
+      "x": 458.9715576171875,
+      "y": 253.9696807861328,
+      "width": 241.140625,
+      "height": 306.640625
+    }
+  },
+  "draggable-text-Messages": {
+    "mobile": { "x": 0, "y": 0 },
+    "desktop": {
+      "x": 61.99336624145508,
+      "y": 424.9990234375,
+      "width": 171.5625,
+      "height": 142
+    }
   },
   "draggable-text-Notes": {
     "mobile": { "x": 0, "y": 0 },
     "desktop": { "x": 1056, "y": 477, "width": 192.578125, "height": 189 }
   },
-  "draggable-text-DailyTimes": {
+  "draggable-text-Sponsored": {
     "mobile": { "x": 0, "y": 0 },
-    "desktop": { "x": 1056, "y": 477, "width": 292.578125, "height": 189 }
+    "desktop": { "x": 4.999999523162842, "y": 592.4336547851562 }
   },
-  "draggable-text-Messages": {
+  "draggable-text-SynName": {
     "mobile": { "x": 0, "y": 0 },
-    "desktop": { "x": 72, "y": 477, "width": 193.5625, "height": 188 }
+    "desktop": {
+      "x": 429.0340576171875,
+      "y": 73.98863220214844,
+      "width": 296.953125,
+      "height": 57
+    }
   },
-  "draggable-text-Header": {
+  "draggable-text-ZmanTfila": {
     "mobile": { "x": 0, "y": 0 },
-    "desktop": { "x": 514, "y": 259 }
-  },
-  "draggable-text-Area": {
-    "mobile": { "x": 0, "y": 0 },
-    "desktop": { "x": 75, "y": 119, "width": 194.390625, "height": 329 }
-  },
-  "draggable-text-BottomTitle": {
-    "mobile": { "x": 0, "y": 0, "width": 0, "height": 0 },
-    "desktop": { "x": 1068, "y": 761, "width": 0, "height": 0 }
+    "desktop": {
+      "x": 931.2849731445312,
+      "y": 106.98863220214844,
+      "width": 171.703125,
+      "height": 265
+    }
   }
 }

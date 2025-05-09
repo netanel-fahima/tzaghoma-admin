@@ -45,12 +45,12 @@ const DailyTimes: React.FC<DailyTimesProps> = ({
 
   const timesList = [
     { desc: "עלות השחר", time: formatTime(times.alotHaShachar) },
-    { desc: "זמן טלית ותפילין", time: formatTime(times.misheyakir) },
+    { desc: "זמן טו״ת", time: formatTime(times.misheyakir) },
     { desc: "הנץ החמה", time: formatTime(times.sunrise) },
-    { desc: 'סוף זמן ק"ש מג"א', time: formatTime(times.sofZmanShmaMGA) },
-    { desc: 'סוף זמן ק"ש גר"א', time: formatTime(times.sofZmanShma) },
-    { desc: 'סוף זמן תפילה מג"א', time: formatTime(times.sofZmanTfillaMGA) },
-    { desc: 'סוף זמן תפילה גר"א', time: formatTime(times.sofZmanTfilla) },
+    { desc: 'סו״ז ק"ש מג"א', time: formatTime(times.sofZmanShmaMGA) },
+    { desc: 'סו״ז ק"ש גר"א', time: formatTime(times.sofZmanShma) },
+    { desc: 'סו״ז תפילה מג"א', time: formatTime(times.sofZmanTfillaMGA) },
+    { desc: 'סו״ז תפילה גר"א', time: formatTime(times.sofZmanTfilla) },
     { desc: "חצות היום", time: formatTime(times.chatzot) },
     { desc: "מנחה גדולה", time: formatTime(times.minchaGedola) },
     { desc: "מנחה קטנה", time: formatTime(times.minchaKetana) },

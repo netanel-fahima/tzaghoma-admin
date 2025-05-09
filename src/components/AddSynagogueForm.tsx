@@ -118,7 +118,7 @@ export default function AddSynagogueForm({
     try {
       await addDoc(collection(db, "synagogues"), {
         ...newSynagogue,
-        lastConnection: new Date().toISOString(),
+        lastConnection: new Date(Number.MIN_VALUE).toISOString(),
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       });
