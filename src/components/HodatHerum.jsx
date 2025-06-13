@@ -122,13 +122,15 @@ const HodatHerum = ({ city = "נתיבות", container, messages: firestoreMessa
                 if (
                     alert?.id &&
                     Array.isArray(alert.data) &&
-                    alert.data.some(location => location.includes(city))
+                    alert.data.some(location => location?.includes(city ) || location?.includes('רחבי הארץ'))
                 ) {
                     if (!seenAlertIdsRef.current.has(alert.id)) {
     
+                        const location = alert.data.find(location => location?.includes(city ) || location?.includes('רחבי הארץ'))
+
                         const newAlert = {
                             id: alert.id,
-                            content: `${new Date().toLocaleTimeString('he-IL')} - ${city} - ${alert?.title || ''} - ${alert.desc || ''}`,
+                            content: `${new Date().toLocaleTimeString('he-IL')} - ${location} - ${alert?.title || ''} - ${alert.desc || ''}`,
                             category: 'pikud',
                             timestamp: new Date().getTime(),
                         };
