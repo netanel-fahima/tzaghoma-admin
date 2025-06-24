@@ -137,7 +137,7 @@ const HodatHerum = ({ city = "נתיבות", container, messages: firestoreMessa
     
                         console.log('newAlert', newAlert);
     
-                        setAllMessages(prev => [...prev, newAlert]);
+                        setAllMessages(prev => [...prev?.filter(msg=> msg?.category !== 'pikud'), newAlert]);
                         seenAlertIdsRef.current.add(alert.id);
                         setLastCategory(alert.cat);
                     }
